@@ -1,0 +1,1 @@
+"""Deterministic defensive detection rules."""
