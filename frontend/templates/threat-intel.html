@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Threat Intelligence · CyberSentinel{% endblock %}{% block page_id %}threat-intel{% endblock %}{% block heading %}Threat Intelligence{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Enrich an IP, domain, or file hash using the configured provider. No result is invented when enrichment is unavailable.</p></div>
+<section class="panel search-panel"><form id="threat-form" class="toolbar"><label class="visually-hidden" for="indicator">Indicator</label><input id="indicator" class="form-control" placeholder="IP address, domain, MD5, SHA-1, or SHA-256" maxlength="512" required><button class="btn btn-primary">Look up indicator</button></form><div id="threat-result" class="result-area"></div><p class="muted small mt-4">External lookups share the submitted indicator with the configured threat-intelligence provider. Configure a provider key only for authorized data-handling policies.</p></section>
+{% endblock %}

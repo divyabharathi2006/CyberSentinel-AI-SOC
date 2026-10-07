@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block title %}System Health · CyberSentinel{% endblock %}{% block page_id %}health{% endblock %}{% block heading %}System Health{% endblock %}
+{% block content %}<div class="page-intro"><p>Core ingestion remains independent of optional Elasticsearch, ML, and threat-intelligence services.</p><button class="btn btn-outline-light" id="refresh-health">Run health check</button></div><section class="panel"><div id="health-grid" class="health-grid"><div class="loading">Checking service status…</div></div></section>{% endblock %}

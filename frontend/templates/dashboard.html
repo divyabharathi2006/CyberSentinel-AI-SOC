@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% block title %}Dashboard · CyberSentinel{% endblock %}{% block page_id %}dashboard{% endblock %}{% block heading %}SOC Overview{% endblock %}
+{% block content %}
+<div class="page-intro"><div><p>Security signals and investigation workload across your monitored environment.</p></div><button class="btn btn-outline-light" id="refresh-dashboard">Refresh data</button></div>
+<div class="metric-grid">
+  <article class="metric-card"><span>Total events</span><strong id="metric-events">—</strong><small><b id="metric-epm">—</b> in the last minute</small></article>
+  <article class="metric-card danger"><span>Critical alerts</span><strong id="metric-critical">—</strong><small>Require immediate triage</small></article>
+  <article class="metric-card warning"><span>High alerts</span><strong id="metric-high">—</strong><small>Open detection signals</small></article>
+  <article class="metric-card"><span>Open incidents</span><strong id="metric-incidents">—</strong><small><b id="metric-resolved">—</b> resolved or closed</small></article>
+  <article class="metric-card"><span>Detection rate</span><strong><span id="metric-rate">—</span><small>%</small></strong><small>Alerts / received events</small></article>
+  <article class="metric-card"><span>ML anomalies</span><strong id="metric-anomalies">—</strong><small id="ml-state">Model status loading</small></article>
+  <article class="metric-card"><span>Active suspicious IPs</span><strong id="metric-suspicious-ips">—</strong><small>Unresolved alert sources</small></article>
+</div>
+<div class="chart-grid">
+  <article class="panel chart-panel"><div class="panel-head"><div><h2>Event activity</h2><p>Normalized telemetry · last 24 hours</p></div><span class="panel-tag">24H</span></div><canvas id="events-chart" aria-label="Events over time chart"></canvas></article>
+  <article class="panel chart-panel"><div class="panel-head"><div><h2>Alert severity</h2><p>Unresolved alerts by severity</p></div></div><canvas id="severity-chart" aria-label="Alert severity distribution chart"></canvas></article>
+</div>
+<div class="table-grid">
+ <article class="panel"><div class="panel-head"><div><h2>Recent alerts</h2><p>Prioritize high-impact signals</p></div><a href="/alerts" class="text-link">View all →</a></div><div id="recent-alerts" class="table-wrap"><div class="loading">Loading alert queue…</div></div></article>
+ <article class="panel"><div class="panel-head"><div><h2>Top source IPs</h2><p>Events in the last 24 hours</p></div></div><div id="top-ips" class="compact-list"><div class="loading">Loading sources…</div></div></article>
+</div>
+<div class="chart-grid">
+  <article class="panel chart-panel"><div class="panel-head"><div><h2>Detection categories</h2><p>Alert rule categories · last 24 hours</p></div><a href="/alerts" class="text-link">Review alerts →</a></div><canvas id="threat-category-chart" aria-label="Detection categories chart"></canvas></article>
+  <article class="panel chart-panel"><div class="panel-head"><div><h2>Alert activity</h2><p>Detections · last 24 hours</p></div></div><canvas id="alerts-chart" aria-label="Alerts over time chart"></canvas></article>
+</div>
+<section class="panel">
+  <div class="panel-head"><div><h2>Environment activity</h2><p>Top destinations, users, and destination ports · last 24 hours</p></div><a href="/network" class="text-link">Network monitoring →</a></div>
+  <div class="activity-grid"><div><h3>Top destination IPs</h3><div id="top-destinations" class="compact-list"></div></div><div><h3>Top users</h3><div id="top-users" class="compact-list"></div></div><div><h3>Top destination ports</h3><div id="top-ports" class="compact-list"></div></div></div>
+</section>
+<div id="dashboard-error"></div>
+{% endblock %}

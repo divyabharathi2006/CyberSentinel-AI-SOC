@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Reports · CyberSentinel{% endblock %}{% block page_id %}reports{% endblock %}{% block heading %}Security Reports{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Export up to 1,000 current records in JSON, CSV, or PDF format.</p></div><section class="panel report-grid">
+{% set report_details = {
+  "alerts": ("Alert summary", "Detection signals, severity, status, and evidence."),
+  "events": ("Event activity", "Normalized telemetry records for investigation."),
+  "incident": ("Incident report", "Incident ownership, notes, status, and timeline.")
+} %}
+{% for kind in site_options.report_types %}
+{% set title, description = report_details[kind] %}
+<article class="report-card"><span class="report-icon">▤</span><h2>{{ title }}</h2><p>{{ description }}</p><div class="toolbar-inline"><select class="form-select report-format" aria-label="Format for {{ title }}">{% for value in site_options.report_formats %}<option value="{{ value }}">{{ value|upper }}</option>{% endfor %}</select><button class="btn btn-outline-light download-report" data-kind="{{ kind }}">Export</button></div></article>
+{% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Network Monitoring · CyberSentinel{% endblock %}{% block page_id %}network{% endblock %}{% block heading %}Network Monitoring{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Authorized network telemetry observed during the last 24 hours. Activity here is derived from ingested events; this page does not scan networks.</p><button class="btn btn-outline-light" id="refresh-network">Refresh data</button></div>
+<div class="metric-grid network-metrics">
+  <article class="metric-card"><span>Network events</span><strong id="network-event-count">—</strong><small>Last 24 hours</small></article>
+  <article class="metric-card"><span>Active source IPs</span><strong id="network-source-count">—</strong><small>Distinct observed sources</small></article>
+  <article class="metric-card"><span>Active destination IPs</span><strong id="network-destination-count">—</strong><small>Distinct observed destinations</small></article>
+</div>
+<section class="panel"><div class="panel-head"><div><h2>Suspicious activity sources</h2><p>Sources attached to unresolved alerts. Alert volume is not a threat-intelligence reputation.</p></div></div><div id="network-suspicious" class="table-wrap"><div class="loading">Loading suspicious sources…</div></div></section>
+<div class="table-grid">
+  <section class="panel"><div class="panel-head"><div><h2>Top source IPs</h2><p>Observed network events</p></div></div><div id="network-sources" class="compact-list"></div></section>
+  <section class="panel"><div class="panel-head"><div><h2>Top destination IPs</h2><p>Observed network events</p></div></div><div id="network-destinations" class="compact-list"></div></section>
+</div>
+<section class="panel"><div class="panel-head"><div><h2>Top destination ports</h2><p>Observed network events</p></div></div><div id="network-ports" class="compact-list"></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Recent network events</h2><p>Select an event row to inspect its normalized details.</p></div><a href="/events" class="text-link">All events →</a></div><div id="network-events" class="table-wrap"></div></section>
+<section class="panel detail-panel" id="network-event-detail" hidden></section>
+{% endblock %}

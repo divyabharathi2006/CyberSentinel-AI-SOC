@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Alerts · CyberSentinel{% endblock %}{% block page_id %}alerts{% endblock %}{% block heading %}Detection Queue{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Review rule-backed detections, inspect evidence, and record analyst actions. A detection is a lead, not a verdict.</p><div class="toolbar-inline"><select id="alert-status-filter" class="form-select"><option value="">All statuses</option>{% for value in site_options.alert_statuses %}<option value="{{ value }}">{{ value.replace("_", " ")|title }}</option>{% endfor %}</select><button class="btn btn-outline-light" id="refresh-alerts">Refresh</button></div></div>
+<section class="panel"><div id="alerts-table" class="table-wrap"><div class="loading">Loading alerts…</div></div><div id="alerts-pagination" class="pagination-bar"></div></section>
+<section class="panel detail-panel" id="alert-detail" hidden></section>
+{% endblock %}

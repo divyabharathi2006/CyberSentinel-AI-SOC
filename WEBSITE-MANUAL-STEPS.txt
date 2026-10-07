@@ -1,0 +1,191 @@
+CYBERSENTINEL AI SOC - MANUAL WEBSITE STEPS
+==========================================
+
+1. START THE WEBSITE
+--------------------
+Open PowerShell in the project folder:
+
+    cd "D:\Project 7"
+
+Activate the virtual environment:
+
+    .\.venv\Scripts\Activate.ps1
+
+Start the Flask website:
+
+    python run.py
+
+Keep this PowerShell window open while using the website. Wait for the
+application startup message.
+
+2. OPEN AND SIGN IN
+-------------------
+Open this address in your browser:
+
+    http://127.0.0.1:5000
+
+Sign in using the local administrator account:
+
+    Username: admindivy
+    Password: AdminDivya16@
+
+If sign-in fails, confirm that you are using the same local database where
+the account was created and that the application has started successfully.
+
+3. GENERATE SYNTHETIC DEMO DATA
+-------------------------------
+1. Select Settings in the left navigation.
+2. Review the runtime, detection, and integration settings. Values on this
+   page are read-only; secrets are not shown.
+3. Select "Generate and ingest demo".
+4. Confirm the prompt. This adds synthetic events to the configured database.
+5. Read the result message for the number of events and alerts created.
+
+The demo uses reserved example IP addresses and synthetic account and host
+names. It does not collect data from real people or systems. Running it more
+than once adds more demo events to the database.
+
+4. EXPLORE THE WEBSITE
+----------------------
+Dashboard:
+    View event and alert counts, incident status, and security trends.
+
+Events:
+    To enter an event yourself:
+    1. Select "Ingest events".
+    2. Edit the JSON example in the text box, keeping the braces and quoted
+       field names.
+    3. Select "Validate and ingest".
+    4. Search for the event in the Events table. If a rule matches, review the
+       alert under Alerts.
+
+    Example safe synthetic event:
+
+        {
+          "event_type": "authentication",
+          "timestamp": "2026-10-01T10:00:00Z",
+          "source_ip": "198.51.100.25",
+          "destination_ip": "203.0.113.20",
+          "username": "demo-user",
+          "hostname": "demo-workstation",
+          "action": "login",
+          "status": "failed",
+          "severity": "medium",
+          "source": "manual-demo",
+          "message": "Synthetic failed login for testing"
+        }
+
+    Required field:
+        event_type - a short event category, for example authentication,
+                     network_connection, endpoint_process, or application.
+
+    Optional fields:
+        timestamp         ISO-8601 date/time, e.g. 2026-10-01T10:00:00Z.
+                          If omitted, the current time is used.
+        source_ip         IPv4 or IPv6 address for the event source.
+        destination_ip    IPv4 or IPv6 address for the destination.
+        source_port       Integer from 1 to 65535.
+        destination_port  Integer from 1 to 65535.
+        protocol          Protocol label, e.g. TCP or UDP.
+        username          Account related to the event.
+        hostname          Host/device label.
+        action            What happened, e.g. login or connect.
+        status            Result, e.g. failed, success, or observed.
+        process           Process name/indicator for endpoint events.
+        severity          informational, low, medium, high, or critical.
+        source            Log source label, e.g. manual-demo.
+        message           Short explanation (up to 2,000 characters).
+        metadata          Optional JSON object for extra structured fields.
+
+    Use valid JSON syntax: double quotes around names and text values, commas
+    between fields, and no comma after the final field. Source/destination IPs
+    and ports must be valid if supplied. Choose values from authorized test
+    data; do not paste real secrets, passwords, or sensitive personal data.
+
+    To enter several records together, the API accepts a JSON array of event
+    objects, but the website text box is intended for one event at a time.
+    Alternatively use "Upload file" for JSON, JSONL, CSV, LOG, or TXT:
+        JSON:   one event object, or an array of event objects.
+        JSONL:  one JSON event object per line.
+        CSV:    first row contains column names such as event_type,source_ip,
+                username,status,severity,message.
+        LOG/TXT: syslog-style text lines; unparsed lines are retained as
+                 generic syslog messages.
+
+    Browse and search normalized events. The search box filters across common
+    fields such as source IP, user, host, type, and message. Choose a severity
+    to narrow the list. Demo events use the source "synthetic-lab".
+
+Alerts:
+    Review detection results and choose an alert to inspect its evidence.
+    Depending on your role, use the available actions to acknowledge, assign,
+    add investigation notes, change status, or create a linked incident.
+    Validate signals as an analyst; an alert does not prove malicious
+    activity.
+
+Incidents:
+    Select "Create incident" and enter:
+        Title        Short name for the investigation (e.g. "Review demo
+                     authentication activity").
+        Severity     Choose informational, low, medium, high, or critical.
+        Description  What needs investigation and why.
+        Alert IDs    Optional comma-separated numeric alert IDs, e.g. 12, 14.
+                     Leave blank if the incident is not linked to alerts.
+    Select "Create incident". Open the new incident to assign an owner, add
+    notes, update status, and record a resolution when appropriate.
+
+Threat intelligence:
+    Enter one indicator in the search box and select "Look up indicator".
+    Supported examples include an IP address (198.51.100.25), domain name
+    (example.invalid), or 32-, 40-, or 64-character hexadecimal file hash.
+    Only use indicators that your organization is authorized to submit.
+    External enrichment requires an API key configured by the operator.
+    Without a provider key or cached result, there may be no enrichment result.
+
+Reports:
+    Choose JSON, CSV, or PDF on the Alert summary, Event activity, or Incident
+    report card, then select "Export". The website downloads the report; there
+    is no text to enter.
+
+System Health:
+    Check database and optional service status.
+
+Users:
+    Administrators and security managers can view accounts. Only an
+    administrator can create users. Select "Add user" and enter:
+        Username  Unique name for the new account (up to 80 characters).
+        Email     Valid email-format address (up to 254 characters).
+        Role      Viewer, SOC Analyst, Security Manager, or Admin.
+        Password  At least 12 characters, containing uppercase, lowercase,
+                  and a number.
+    Enter passwords only in the password field; never in event messages or
+    investigation notes.
+
+5. STOP THE WEBSITE
+-------------------
+Return to the PowerShell window running the app and press Ctrl+C.
+
+6. OPTIONAL: GENERATE A FILE WITHOUT INGESTING IT
+-------------------------------------------------
+In a separate PowerShell window in the project folder, activate the virtual
+environment and run:
+
+    .\.venv\Scripts\Activate.ps1
+    python scripts\generate_sample_logs.py
+
+The generated JSON Lines file is saved at:
+
+    data\sample_logs\synthetic_events.jsonl
+
+This command writes a file only. It does not ingest the events unless the
+optional authenticated ingestion workflow is used.
+
+SECURITY NOTES
+--------------
+- Use this application only for defensive monitoring you are authorized to
+  perform.
+- Do not expose the local development server or lab ELK services to untrusted
+  networks.
+- Do not put passwords, API keys, or other secrets in source files.
+- The demo button adds records to the database; use a disposable development
+  database if you want an isolated demonstration.

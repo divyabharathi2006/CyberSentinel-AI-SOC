@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>{% block title %}CyberSentinel AI SOC{% endblock %}</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/soc.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/navigation.css') }}" rel="stylesheet">
+  {% block head %}{% endblock %}
+</head>
+<body data-page="{% block page_id %}dashboard{% endblock %}">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/"><span class="brand-mark">CS</span><span>CyberSentinel<small>AI Security Operations</small></span></a>
+    <nav aria-label="Main navigation">
+      <a href="/dashboard" data-nav="dashboard"><span>◈</span> Dashboard</a>
+      <a href="/network" data-nav="network"><span>⌁</span> Network Monitoring</a>
+      <a href="/events" data-nav="events"><span>⌁</span> Events</a>
+      <a href="/alerts" data-nav="alerts"><span>⚑</span> Alerts</a>
+      <a href="/incidents" data-nav="incidents"><span>▣</span> Incidents</a>
+      <a href="/timeline" data-nav="timeline"><span>↕</span> Attack Timeline</a>
+      <a href="/threat-intel" data-nav="threat-intel"><span>◎</span> Threat intelligence</a>
+      <a href="/ml-analytics" data-nav="ml-analytics"><span>◌</span> ML Analytics</a>
+      <a href="/reports" data-nav="reports"><span>▤</span> Reports</a>
+      <a href="/users" data-nav="users" data-role="Admin,Security Manager"><span>♙</span> Users</a>
+      <a href="/health" data-nav="health"><span>♥</span> System health</a>
+      <a href="/settings" data-nav="settings"><span>⚙</span> Settings</a>
+    </nav>
+    <div class="sidebar-bottom"><span class="status-dot"></span> Defensive monitoring only</div>
+  </aside>
+  <main class="main-shell">
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <div><span class="eyebrow">SECURITY OPERATIONS</span><h1>{% block heading %}SOC Overview{% endblock %}</h1></div>
+      <div class="top-actions"><span class="live-pill"><span class="status-dot"></span> Live workspace</span><span id="user-label" class="user-label"></span><button id="logout" class="btn btn-sm btn-outline-light">Sign out</button></div>
+    </header>
+    <section class="content-area">{% block content %}{% endblock %}</section>
+    <footer>CyberSentinel AI SOC · Defensive monitoring · Detection signals require analyst validation</footer>
+  </main>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script>window.CYBERSENTINEL_OPTIONS = {{ site_options|tojson }};</script>
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</body>
+</html>

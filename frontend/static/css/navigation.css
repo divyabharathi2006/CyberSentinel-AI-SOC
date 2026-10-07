@@ -1,0 +1,21 @@
+.sidebar nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+
+.sidebar nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar nav::-webkit-scrollbar-thumb {
+  background: #34445b;
+  border-radius: 999px;
+}
+
+.sidebar nav {
+  scrollbar-color: #34445b transparent;
+  scrollbar-width: thin;
+}

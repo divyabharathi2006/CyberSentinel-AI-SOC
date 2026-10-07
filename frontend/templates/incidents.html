@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Incidents · CyberSentinel{% endblock %}{% block page_id %}incidents{% endblock %}{% block heading %}Incident Management{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Track investigation ownership, evidence, actions, and resolution from linked alert signals.</p><button class="btn btn-primary" id="new-incident">＋ Create incident</button></div>
+<section class="panel" id="incident-create-panel" hidden><div class="panel-head"><div><h2>New incident</h2><p>Link related alert IDs if available.</p></div></div><form id="incident-form" class="form-grid"><label>Title<input class="form-control" name="title" maxlength="200" required></label><label>Severity<select class="form-select" name="severity">{% for value in site_options.severities %}<option value="{{ value }}" {% if value == "medium" %}selected{% endif %}>{{ value|title }}</option>{% endfor %}</select></label><label class="wide">Description<textarea class="form-control" name="description" maxlength="4000" required></textarea></label><label class="wide">Alert IDs (comma separated)<input class="form-control" name="alert_ids" placeholder="e.g. 12, 14"></label><div><button class="btn btn-primary">Create incident</button></div></form></section>
+<section class="panel"><div id="incidents-table" class="table-wrap"><div class="loading">Loading incidents…</div></div></section>
+<section class="panel detail-panel" id="incident-detail" hidden></section>
+{% endblock %}

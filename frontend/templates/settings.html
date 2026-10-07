@@ -1,0 +1,26 @@
+{% extends "base.html" %}{% block title %}Settings · CyberSentinel{% endblock %}{% block page_id %}settings{% endblock %}{% block heading %}Workspace Settings{% endblock %}
+{% block content %}
+<div class="page-intro">
+  <p>Review the active runtime and detection configuration. Secrets are never displayed; change deployment settings in <code>.env</code> and restart the application.</p>
+  <button class="btn btn-outline-light" id="refresh-settings">Refresh settings</button>
+</div>
+<section class="panel">
+  <div class="panel-head"><div><h2>Runtime configuration</h2><p>Effective values loaded by this running application.</p></div></div>
+  <div id="settings-grid" class="settings-grid"><div class="loading">Loading settings…</div></div>
+</section>
+<section class="panel">
+  <div class="panel-head"><div><h2>Generate demo telemetry</h2><p>Ingest safe synthetic events through the same normalization and detection pipeline used by real authorized telemetry.</p></div></div>
+  <p class="muted">Creates baseline activity plus synthetic failed-login correlation, network port fan-out, and an endpoint indicator. Demo data uses reserved example IP addresses and does not come from real systems. Generating it adds records to this database.</p>
+  <div class="action-row">
+    <button class="btn btn-primary" id="generate-demo">Generate and ingest demo</button>
+    <a class="btn btn-outline-light" href="/events">View events</a>
+    <a class="btn btn-outline-light" href="/alerts">Review alerts</a>
+  </div>
+  <p id="demo-result" class="muted small mt-3" aria-live="polite"></p>
+</section>
+<section class="panel">
+  <div class="panel-head"><div><h2>Changing configuration</h2><p>Settings are intentionally read-only in the browser.</p></div></div>
+  <p>Update <code>.env</code> for deployment options such as database, Elasticsearch, syslog, token lifetime, and threat-intelligence credentials, then restart <code>python run.py</code>. Detection thresholds also have defaults in <code>config.yaml</code>; environment values override them. Never share or commit secret values.</p>
+  <a class="btn btn-outline-light" href="/health">Check service health</a>
+</section>
+{% endblock %}

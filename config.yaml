@@ -1,0 +1,22 @@
+app:
+  name: CyberSentinel AI SOC
+  api_prefix: /api
+  request_size_limit_bytes: 1048576
+detection:
+  authentication:
+    failed_attempt_threshold: 5
+    window_minutes: 10
+  network:
+    distinct_destination_port_threshold: 8
+    window_minutes: 10
+  anomaly:
+    alert_threshold: 0.85
+    advisory_only: true
+risk:
+  informational_max: 24
+  low_max: 49
+  medium_max: 74
+  high_max: 89
+  critical_min: 90
+reports:
+  maximum_records: 1000

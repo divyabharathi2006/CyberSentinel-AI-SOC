@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Events · CyberSentinel{% endblock %}{% block page_id %}events{% endblock %}{% block heading %}Security Events{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Search and inspect normalized security telemetry. Ingestion is limited to authorized sources.</p><button class="btn btn-primary" id="toggle-ingest">＋ Ingest events</button></div>
+<section class="panel ingest-panel" id="ingest-panel" hidden>
+  <div class="panel-head"><div><h2>Ingest telemetry</h2><p>Submit one JSON event or upload JSON, JSONL, CSV, or syslog text.</p></div></div>
+  <form id="event-form"><label for="event-json" class="form-label">JSON event</label><textarea id="event-json" class="form-control code-input" rows="6">{"event_type":"authentication","source_ip":"198.51.100.25","username":"analyst-test","status":"failed","severity":"medium","message":"Synthetic lab authentication failure"}</textarea><button class="btn btn-primary mt-3">Validate and ingest</button></form>
+  <div class="divider">OR</div><form id="upload-form"><label class="form-label" for="event-file">Log file</label><input type="file" class="form-control" id="event-file" accept=".json,.jsonl,.ndjson,.csv,.log,.txt" required><button class="btn btn-outline-light mt-3">Upload file</button></form>
+</section>
+<section class="panel"><div class="toolbar"><input id="event-search" class="form-control" placeholder="Filter source IP, user, host, event type…" aria-label="Search events"><select id="event-severity" class="form-select"><option value="">All severities</option>{% for value in site_options.severities %}<option value="{{ value }}">{{ value|title }}</option>{% endfor %}</select><button id="event-search-button" class="btn btn-outline-light">Search</button></div><div id="events-table" class="table-wrap"><div class="loading">Loading events…</div></div><div id="events-pagination" class="pagination-bar"></div></section>
+{% endblock %}

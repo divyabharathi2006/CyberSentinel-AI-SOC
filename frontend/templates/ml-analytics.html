@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block title %}ML Analytics · CyberSentinel{% endblock %}{% block page_id %}ml-analytics{% endblock %}{% block heading %}ML Analytics{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Advisory Isolation Forest signals saved with alerts. Scores indicate unusual patterns relative to the trained model; they do not prove malicious activity.</p><button class="btn btn-outline-light" id="refresh-ml">Refresh data</button></div>
+<div class="metric-grid ml-metrics">
+  <article class="metric-card"><span>Model status</span><strong id="ml-model-status">—</strong><small id="ml-model-version">Version unavailable</small></article>
+  <article class="metric-card"><span>Scored alert samples</span><strong id="ml-sample-count">—</strong><small>Last 24 hours · maximum 1,000</small></article>
+  <article class="metric-card warning"><span>At or above alert threshold</span><strong id="ml-anomaly-count">—</strong><small>Based on stored scores</small></article>
+  <article class="metric-card"><span>Mean anomaly score</span><strong id="ml-average-score">—</strong><small id="ml-threshold">Alert threshold —</small></article>
+</div>
+<div class="chart-grid">
+  <section class="panel chart-panel"><div class="panel-head"><div><h2>Scored alerts over time</h2><p>Stored ML-scored alerts · last 24 hours</p></div></div><canvas id="ml-alerts-chart" aria-label="ML-scored alerts over time"></canvas></section>
+  <section class="panel"><div class="panel-head"><div><h2>Threshold distribution</h2><p>Stored alert scores only</p></div></div><div id="ml-distribution" class="compact-list"></div></section>
+</div>
+<section class="panel"><div class="panel-head"><div><h2>Recent ML-scored alerts</h2><p>Potential anomalies require independent analyst validation.</p></div><a href="/alerts" class="text-link">Open alert queue →</a></div><div id="ml-alerts-table" class="table-wrap"></div></section>
+<p id="ml-interpretation" class="muted small"></p>
+{% endblock %}

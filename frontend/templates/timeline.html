@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Attack Timeline · CyberSentinel{% endblock %}{% block page_id %}timeline{% endblock %}{% block heading %}Attack Timeline{% endblock %}
+{% block content %}
+<div class="page-intro"><p>Chronological incident evidence: linked events, alerts, analyst notes, and incident updates. Timeline entries are evidence for investigation, not confirmation of an attack.</p><a href="/incidents" class="btn btn-outline-light">Incident management</a></div>
+<section class="panel">
+  <div class="toolbar-inline"><label for="timeline-incident">Incident</label><select id="timeline-incident" class="form-select"><option value="">Select an incident</option></select><button class="btn btn-outline-light" id="refresh-timeline">Refresh</button></div>
+  <div id="timeline-summary" class="muted small mt-3"></div>
+  <div id="timeline-items" class="timeline-list"><div class="loading">Choose an incident to view its timeline.</div></div>
+</section>
+<section class="panel detail-panel" id="timeline-event-detail" hidden></section>
+{% endblock %}
